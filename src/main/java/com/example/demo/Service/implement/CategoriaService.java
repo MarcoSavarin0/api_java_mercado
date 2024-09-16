@@ -74,8 +74,10 @@ public class CategoriaService implements ICategoriaService {
         Optional<Categoria> categoriaMatch = categoriaRepository.findById(id);
         if (categoriaMatch.isEmpty()) {
             logger.info("No se encontro ninguna categoria con ese Id " + id);
+            throw new BadRequestException("Error el eliminar la categoria con el id " + id);
         } else {
             categoriaRepository.deleteById(id);
+
         }
     }
 }

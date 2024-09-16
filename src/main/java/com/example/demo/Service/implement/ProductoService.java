@@ -81,6 +81,7 @@ public class ProductoService implements IProductoService {
         Optional<Producto> productoMatch = productoRepository.findById(id);
         if (!productoMatch.isPresent()) {
             logger.info("no se encontro el producto");
+            throw new ResourceNotFoundException("no se encontro el producto " + id);
         } else {
             productoRepository.deleteById(id);
         }
