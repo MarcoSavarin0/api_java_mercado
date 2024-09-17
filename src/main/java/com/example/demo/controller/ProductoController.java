@@ -21,7 +21,7 @@ public class ProductoController {
         this.productoService = productoService;
     }
 
-    @PostMapping
+    @PostMapping("/admin/guardar")
     public ResponseEntity<Producto> guardarProducto(@Valid @RequestBody Producto producto) {
         Producto productoGuardado = productoService.guardarProducto(producto);
         return ResponseEntity.status(HttpStatus.CREATED).body(productoGuardado);
@@ -39,13 +39,13 @@ public class ProductoController {
         return productoEncontrado.isPresent() ? ResponseEntity.ok(productoEncontrado.get()) : ResponseEntity.notFound().build();
     }
 
-    @PutMapping
+    @PutMapping("/admin/editar")
     public ResponseEntity<Producto> editarProducto(@Valid @RequestBody Producto producto) {
         productoService.editarProducto(producto);
         return ResponseEntity.status(HttpStatus.OK).body(producto);
     }
 
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/admin/eliminar/{id}")
     public ResponseEntity<String> eliminarProducto(@PathVariable Long id) {
         productoService.eliminarProducto(id);
         return ResponseEntity.ok("ok");

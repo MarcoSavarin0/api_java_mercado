@@ -5,6 +5,7 @@ import com.example.demo.dto.Request.UserRequestLoginDto;
 import com.example.demo.dto.Response.UserResponseDto;
 import com.example.demo.entity.User;
 import com.example.demo.jwt.JwtUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,9 +50,9 @@ public class UserController {
         userService.eliminarUsuario(user);
         return ResponseEntity.status(HttpStatus.OK).body("Eliminado");
     }
-    @PostMapping("/auth")
-    public ResponseEntity<?> authUser(@RequestBody Map<String, String> request) {
-        String token = request.get("token");
+    @GetMapping("/auth")
+    public ResponseEntity<?> authUser(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring(7);
         return ResponseEntity.status(HttpStatus.OK).body(userService.authUser(token));
     }
 }

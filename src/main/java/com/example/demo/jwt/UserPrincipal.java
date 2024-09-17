@@ -1,10 +1,12 @@
 package com.example.demo.jwt;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.example.demo.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class UserPrincipal implements UserDetails {
     private User user;
@@ -15,8 +17,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Aquí puedes mapear el rol del usuario a Authorities
-        return user.getRol().getAuthorities(); // Asegúrate de implementar getAuthorities() en tu rol
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRol()));
     }
 
     @Override
